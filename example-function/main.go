@@ -1,38 +1,45 @@
 package main
 
 import (
-	"context"
-	"strings"
+	"encoding/json"
+	"fmt"
 
-	"github.com/aws/aws-lambda-go/lambda"
+	"github.com/memphisdev/memphis.go"
 )
 
-type MemphisMsg struct {
-	Headers map[string]string `json:"headers"`
-	Payload []byte            `json:"payload"`
-}
+func CheckSeverity(message []byte, headers map[string]string, inputs map[string]string) ([]byte, map[string]string, error) {
+	fmt.Println("input", 5/inputs["num"])
+	// var msg_map map[string]interface{} = make(map[string]interface{})
 
-type MemphisEvent struct {
-	Messages []MemphisMsg `json:"messages"`
-}
+	// if err := json.Unmarshal(message, &msg_map); err != nil {
+	// 	return nil, nil, err
+	// }
 
-func HandleRequest(ctx context.Context, event MemphisEvent) (MemphisEvent, error) {
-	var processedEvent MemphisEvent
-	for _, msg := range event.Messages {
-	        msgStr := string(msg.Payload)
-		if strings.Contains(msgStr, "error") {
-			msgStr = strings.Replace(msgStr, "error", "hello", -1)
-		}
+	// last_produce_from_message_ms, ok := ((msg_map)["time_since_last_produce"]).(float64)
+	// if !ok {
+	// 	fmt.Println("last_produce_from_message is not an int")
+	// 	err_str := "time_since_last_produce is not a valid key, or was not parsed correctly as a fload by json.Unmarshal"
+	// 	return nil, nil, fmt.Errorf(err_str)
+	// }
+	// last_produce_from_message_ms_int := int(last_produce_from_message_ms)
 
-		processedEvent.Messages = append(processedEvent.Messages, MemphisMsg{
-			Headers: msg.Headers,
-			Payload: []byte(msgStr),
-		})
-	}
+	// if last_produce_from_message_ms_int >= 10000 {
+	// 	msg_map["severity"] = "critical"
+	// } else if last_produce_from_message_ms_int >= 5000 {
+	// 	msg_map["severity"] = "high"
+	// } else {
+	// 	msg_map["severity"] = "low"
+	// }
 
-	return processedEvent, nil
+	// if msgStr, err := json.Marshal(msg_map); err != nil {
+	// 	return nil, nil, err
+	// } else {
+	// 	return msgStr, inputs, nil
+	// }
+	// return fmt.Errof("test error")
 }
 
 func main() {
-	lambda.Start(HandleRequest)
+	fmt.Println("hello world")
+	memphis.CreateFunction(CheckSeverity)
 }

@@ -5,7 +5,7 @@ import (
 	"github.com/memphisdev/memphis.go"
 )
 func CheckSeverity(message []byte, headers map[string]string, inputs map[string]string) ([]byte, map[string]string, error) {
-	numInt , _ := strconv.Itoa(inputs["name"])
+	numInt , _ := strconv.Atoi(inputs["name"])
 	fmt.Println("input", 5/numInt)
         return message,  inputs, fmt.Errorf("sveta error")
 	// var msg_map map[string]interface{} = make(map[string]interface{})

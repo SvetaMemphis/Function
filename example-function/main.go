@@ -36,4 +36,4 @@ func CheckSeverity(message []byte, headers map[string]string, inputs map[string]
 func main() {
 	fmt.Println("hello world")
 	memphis.CreateFunction(CheckSeverity)
-} (edited) 
+}

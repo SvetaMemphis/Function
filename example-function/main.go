@@ -5,10 +5,12 @@ import (
 	"fmt"
 
 	"github.com/memphisdev/memphis.go"
+	"strconv"
 )
 
 func CheckSeverity(message []byte, headers map[string]string, inputs map[string]string) ([]byte, map[string]string, error) {
-	fmt.Println("input", 5/inputs["num"])
+	numInt := strconv.Atoi(inputs["num"])
+	fmt.Println("input", 5/numInt)
 	// var msg_map map[string]interface{} = make(map[string]interface{})
 
 	// if err := json.Unmarshal(message, &msg_map); err != nil {
@@ -37,6 +39,7 @@ func CheckSeverity(message []byte, headers map[string]string, inputs map[string]
 	// 	return msgStr, inputs, nil
 	// }
 	// return fmt.Errof("test error")
+	return message, headers, nil
 }
 
 func main() {

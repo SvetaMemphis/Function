@@ -17,7 +17,7 @@ func eventHandlerFunc(msgPayload []byte, msgHeaders map[string]string, inputs ma
 	var event Event
 	json.Unmarshal(msgPayload, &event)
 
-	if event.Age%2 == 0 {
+	if event.Age%2 == 1 {
 		return nil, nil, fmt.Errorf("Age is even")
 	}
 
